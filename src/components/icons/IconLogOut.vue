@@ -1,0 +1,27 @@
+<script setup>
+defineProps({
+  strokeCol: {
+    type: String,
+    default: "#fff",
+  },
+});
+</script>
+
+<template>
+  <svg
+    class="w-4 h-auto"
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="none"
+      :stroke="strokeCol"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.5"
+      d="M12 12h7m0 0l-3 3m3-3l-3-3m3-3V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"
+    />
+  </svg>
+</template>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bill/Invoice for 2536272</title>
+
+    <style>
+      * {
+        text-align: center;
+        letter-spacing: 2.4px;
+        margin: 0;
+        padding: 0;
+        vertical-align: top;
+      }
+
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 1200px;
+        margin: 20px auto;
+      }
+
+      .contentHolder {
+        height: 100%;
+        padding: 20px;
+      }
+
+      .docHeader {
+        border: 1.5px solid #3889a6;
+        padding: 10px 0;
+        margin-bottom: 20px;
+      }
+
+      .docHeader img {
+        display: block;
+        margin: 0 auto;
+        width: 250px;
+      }
+
+      .docHeader h1 {
+        color: #0a526c;
+        font-size: 24px;
+        font-weight: 900;
+      }
+
+      .clientInfo .infoSides {
+        border: 1.5px solid #3889a6;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: inline-block;
+        width: 47.5%;
+      }
+
+      .infoData {
+        margin-bottom: 5px;
+        text-align: start;
+      }
+
+      .infoData span {
+        display: inline-block;
+        width: 60%;
+        font-size: 15px;
+        text-align: start;
+      }
+
+      .infoData span.title {
+        font-size: 15px;
+        font-weight: 600;
+        text-align: start;
+        width: 35%;
+      }
+
+      .costList table {
+        font-size: 11px;
+        border-collapse: collapse;
+      }
+
+      .costList thead {
+        background: rgb(7, 119, 159);
+        background: linear-gradient(
+          0deg,
+          rgba(7, 119, 159, 1) 0%,
+          rgba(22, 164, 212, 1) 100%
+        );
+        border-bottom: 1.5px solid #0a526c;
+      }
+
+      .costList table th {
+        padding: 2.5px;
+        color: #fff;
+      }
+
+      .costList table th:first-child {
+        border-left: solid 1.5px #3889a6;
+      }
+
+      .costList table th:last-child {
+        border-right: solid 1.5px #3889a6;
+      }
+
+      .costList table th:not(:last-child) {
+        border-right: 1.5px solid #fff;
+      }
+
+      .costList tbody {
+        border: solid 1.5px #3889a6;
+      }
+
+      .costList tbody td {
+        text-align: start;
+        padding: 6px 2.5px;
+        vertical-align: middle;
+      }
+
+      .costList tbody td:first-child {
+        width: 30px;
+        text-align: center;
+      }
+
+      .costList tbody tr:nth-child(even) {
+        background-color: #f1f9fc;
+      }
+
+      .costList tfoot {
+        border: solid 1.5px #3889a6;
+        border-top: none;
+      }
+
+      .costList tfoot td {
+        padding: 5px 0;
+      }
+
+      .totalCost {
+        border: 1.5px solid #3889a6;
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      .totalCost table,
+      .totalCost td {
+        table-layout: fixed;
+        width: 100%;
+        border: 2px black solid;
+        border-collapse: collapse;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .totalCost td {
+        padding: 5px 20px;
+      }
+
+      .totalCost .arrears {
+        color: red;
+      }
+
+      .inWord {
+        margin: 15px 0;
+      }
+
+      .inWord .title {
+        width: 25%;
+        text-align: start;
+        font-weight: 600;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .inWord .wordInfo {
+        font-size: 18px;
+        font-weight: 600;
+        text-align: start;
+        display: inline-block;
+        width: 70%;
+      }
+
+      .signatureTerms {
+        border: 1.5px solid #3889a6;
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      .signatureTerms .infoSides {
+        display: inline-block;
+        width: 46%;
+      }
+
+      .signatureTerms .smallWidth {
+        width: 300px;
+        margin: 0 auto;
+      }
+
+      .signatureTerms .smallWidth p {
+        font-weight: 600;
+      }
+
+      .smallWidth .signatureTitle {
+        display: inline-block;
+        border-top: 2px solid black;
+        margin-top: 10px;
+      }
+
+      .smallWidth .date {
+        border-bottom: 2px solid black;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        display: inline-block;
+      }
+
+      .signatureTerms .notices {
+        margin: 30px 0;
+      }
+
+      .notices h4, .addressPrompt h4 {
+        color: red;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+
+      .notices p {
+        text-align: start;
+        font-size: 12px;
+        line-height: 1.9;
+      }
+
+      .signatureTerms h1 {
+        font-weight: 600;
+      }
+
+      .addressPrompt {
+        border: 1.5px solid #3889a6;
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      .addressPrompt p {
+        font-size: 12px;
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="contentHolder">
+        <div class="docHeader">
+          <img src="lasaa-web-logo.png" alt="logo" />
+          <h1>BILL/INVOICE</h1>
+        </div>
+
+        <div class="clientInfo">
+          <div class="infoSides">
+            <div class="infoData">
+              <span class="title">Company Name</span>
+              <span>ABIOK PUBLICITY LTD</span>
+            </div>
+            <div class="infoData">
+              <span class="title">Office Address</span>
+              <span>51, Dopemu Road, Idi-Ope Bus-Stop, Dopemu Agege Lagos</span>
+            </div>
+            <div class="infoData">
+              <span class="title">Email</span>
+              <span>oluwasheges@gmail.com</span>
+            </div>
+          </div>
+          <div class="infoSides">
+            <div class="infoData">
+              <span class="title">Customer ID</span>
+              <span>5335543</span>
+            </div>
+            <div class="infoData">
+              <span class="title">Bill Year</span>
+              <span>2034</span>
+            </div>
+            <div class="infoData">
+              <span class="title">App Type</span>
+              <span>Third Party</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="costList">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Location</th>
+                <th>App No</th>
+                <th>Bill Period</th>
+                <th>LGA</th>
+                <th>Size</th>
+                <th>Signage</th>
+                <th>Zone</th>
+                <th>sides</th>
+                <th>Rate</th>
+                <th>Amt due</th>
+                <th>discount</th>
+                <th>Legal Fee</th>
+                <th>Current Charge</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>121 Ogba Road after Mr BIGGS Ogba</td>
+                <td>123456</td>
+                <td>01/01/2024 - 12/31/2024</td>
+                <td>Alimosho</td>
+                <td>Size</td>
+                <td>Rooftop Static</td>
+                <td>Normal</td>
+                <td>10</td>
+                <td>784,000.00</td>
+                <td>784,000.00</td>
+                <td>0.00</td>
+                <td>7,840.00</td>
+                <td>791,840.00</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>121 Ogba Road after Mr BIGGS Ogba</td>
+                <td>123456</td>
+                <td>01/01/2024 - 12/31/2024</td>
+                <td>Alimosho</td>
+                <td>Size</td>
+                <td>Rooftop Static</td>
+                <td>Normal</td>
+                <td>10</td>
+                <td>784,000.00</td>
+                <td>784,000.00</td>
+                <td>0.00</td>
+                <td>7,840.00</td>
+                <td>791,840.00</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>121 Ogba Road after Mr BIGGS Ogba</td>
+                <td>123456</td>
+                <td>01/01/2024 - 12/31/2024</td>
+                <td>Alimosho</td>
+                <td>Size</td>
+                <td>Rooftop Static</td>
+                <td>Normal</td>
+                <td>10</td>
+                <td>784,000.00</td>
+                <td>784,000.00</td>
+                <td>0.00</td>
+                <td>7,840.00</td>
+                <td>791,840.00</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>121 Ogba Road after Mr BIGGS Ogba</td>
+                <td>123456</td>
+                <td>01/01/2024 - 12/31/2024</td>
+                <td>Alimosho</td>
+                <td>Size</td>
+                <td>Rooftop Static</td>
+                <td>Normal</td>
+                <td>10</td>
+                <td>784,000.00</td>
+                <td>784,000.00</td>
+                <td>0.00</td>
+                <td>7,840.00</td>
+                <td>791,840.00</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>121 Ogba Road after Mr BIGGS Ogba</td>
+                <td>123456</td>
+                <td>01/01/2024 - 12/31/2024</td>
+                <td>Alimosho</td>
+                <td>Size</td>
+                <td>Rooftop Static</td>
+                <td>Normal</td>
+                <td>10</td>
+                <td>784,000.00</td>
+                <td>784,000.00</td>
+                <td>0.00</td>
+                <td>7,840.00</td>
+                <td>791,840.00</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>121 Ogba Road after Mr BIGGS Ogba</td>
+                <td>123456</td>
+                <td>01/01/2024 - 12/31/2024</td>
+                <td>Alimosho</td>
+                <td>Size</td>
+                <td>Rooftop Static</td>
+                <td>Normal</td>
+                <td>10</td>
+                <td>784,000.00</td>
+                <td>784,000.00</td>
+                <td>0.00</td>
+                <td>7,840.00</td>
+                <td>791,840.00</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>121 Ogba Road after Mr BIGGS Ogba</td>
+                <td>123456</td>
+                <td>01/01/2024 - 12/31/2024</td>
+                <td>Alimosho</td>
+                <td>Size</td>
+                <td>Rooftop Static</td>
+                <td>Normal</td>
+                <td>10</td>
+                <td>784,000.00</td>
+                <td>784,000.00</td>
+                <td>0.00</td>
+                <td>7,840.00</td>
+                <td>791,840.00</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>121 Ogba Road after Mr BIGGS Ogba</td>
+                <td>123456</td>
+                <td>01/01/2024 - 12/31/2024</td>
+                <td>Alimosho</td>
+                <td>Size</td>
+                <td>Rooftop Static</td>
+                <td>Normal</td>
+                <td>10</td>
+                <td>784,000.00</td>
+                <td>784,000.00</td>
+                <td>0.00</td>
+                <td>7,840.00</td>
+                <td>791,840.00</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>121 Ogba Road after Mr BIGGS Ogba</td>
+                <td>123456</td>
+                <td>01/01/2024 - 12/31/2024</td>
+                <td>Alimosho</td>
+                <td>Size</td>
+                <td>Rooftop Static</td>
+                <td>Normal</td>
+                <td>10</td>
+                <td>784,000.00</td>
+                <td>784,000.00</td>
+                <td>0.00</td>
+                <td>7,840.00</td>
+                <td>791,840.00</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="tableTotal">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>1,000,000.00</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="totalCost">
+          <table>
+            <tr>
+              <td>Current Charges</td>
+              <td class="arrears">Total Arrears</td>
+              <td>Total Amount Due</td>
+            </tr>
+            <tr>
+              <td>₦ 700,000.00</td>
+              <td>₦ <span class="arrears">1,000,335.23</span></td>
+              <td>₦ <span>1,700,335.23</span></td>
+            </tr>
+          </table>
+
+          <div class="inWord">
+            <i class="title">Amount in words</i>
+            <span class="wordInfo">
+              EIGHTEEN MILLION NINE HUNDRED AND TWENTY THREE THOUSAND ONE
+              HUNDRED AND THIRTEEN NAIRA FORTY NINE KOBO
+            </span>
+          </div>
+        </div>
+
+        <div class="signatureTerms">
+          <div class="dateSign">
+            <div class="infoSides">
+              <div class="smallWidth">
+                <img src="MD-SIGNATURE.png" alt="" />
+                <p class="signatureTitle">AUTHORIZED SIGNATURE</p>
+              </div>
+
+              <div class="notices">
+                <h4>*IMPORTANT NOTICE*</h4>
+                <p>
+                  * Please issue a bank draft payable to “The Lagos State
+                  Signage and Advertisement Agency” (no abbreviation)
+                </p>
+                <p>
+                  * Teller(s) should be forwarded to the nearest Lagos State
+                  Signage and Advertisement Agency Branch office
+                </p>
+                <p>
+                  * Please note that you are required to settle your entire bill
+                  within two (2) weeks upon receipt of the notice, failing which
+                  your signage will be removed by the Agency at your own expense
+                </p>
+                <p>
+                  * For further information/clarification, please contact the
+                  nearest Lagos State Signage and Advertisement Agency Branch
+                  office (for the full list of our branch offices please visit
+                  our website: www.lasaa.com)
+                </p>
+              </div>
+            </div>
+            <div class="infoSides">
+              <div class="smallWidth" style="height: 84.33px">
+                <p class="date">13/05/2024</p>
+                <p>DATE</p>
+              </div>
+
+              <div class="notices">
+                <h4>*IMPORTANT NOTICE*</h4>
+                <p>
+                  * Use Your Company Name as your Depositor’s Name when making
+                  payment to the bank
+                </p>
+                <p>
+                  * It is mandatory to use the Agency’s customized teller when
+                  making payment
+                </p>
+                <p>* Report any complaint on your bill immediately</p>
+                <p>* All payments must be made to the account below.</p>
+              </div>
+            </div>
+          </div>
+          <h1>LASAA Billboard, Access Bank 0055914693</h1>
+        </div>
+
+        <div class="addressPrompt">
+          <h4>
+            * Evidence of Payment must be available to the Relationship Manager
+            at the Head Office Promptly
+          </h4>
+          <p>
+            Promptly Head Office Address: 33 Mobolaji Johnson Avenue, Eleganza
+            Plaza, Opposite 7Up, Ikeja , Lagos State
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
