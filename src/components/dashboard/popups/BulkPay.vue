@@ -56,48 +56,59 @@ const adsType = () => {
   }
 };
 
-// function startPayment() {
-//   loading.value = true;
-//   const paystack = new PaystackPop();
+function startPayment() {
+  loading.value = true;
+  const paystack = new PaystackPop();
+  const amount =
+    payData.value.total_price +
+    (payData.value.chargeFee || payData.value.ChargeFee);
 
-//   const amount =
-//     payData.value.total_price +
-//     (payData.value.chargeFee || payData.value.ChargeFee);
+  const simpleMeta = {
+    paymentFor: "Application Fee",
+    appType: props.formType,
+    paymentId: payData.value.paymentID,
+    appPurpose: props.appPurpose,
+    amountPaid: payData.value.total_price,
+  };
 
-//   paystack.newTransaction({
-//     key: import.meta.env.VITE_ENV_STRING + payData.value.additionalInfo,
-//     email: userDetails.userInfo.email,
-//     amount: amount * 100,
-//     channels: channelList(amount),
-//     metadata: {
-//       paymentFor: "Application Fee",
-//       paymentId: payData.value.paymentID,
-//       appType: props.formType,
-//       appPurpose: props.appPurpose,
-//     },
-//     onSuccess: (transaction) => {
-//       console.log(transaction);
-//       // const data = {
-//       //   reference_id: transaction.reference,
-//       //   payment_id: props.paymentID,
-//       //   form_type: props.formType,
-//       //   payment_type: "Paystack",
-//       // };
+  if (props.multipleID) {
+    simpleMeta.customFields = [
+      {
+        variable_name: "paymentId",
+        display_name: "Payment Id",
+        value: Array.isArray(props.multipleID)
+          ? props.multipleID.join(", ")
+          : props.multipleID,
+      },
+    ];
+  }
 
-//       setTimeout(() => emit("confirm"), 7000);
+  console.log(simpleMeta)
 
-//       toast.success("Your Application is being Processed", {
-//         position: toast.POSITION.TOP_CENTER,
-//       });
-//     },
-//     onCancel: () => {
-//       toast.error("Payment Cancelled", {
-//         position: toast.POSITION.TOP_CENTER,
-//       });
-//       loading.value = false;
-//     },
-//   });
-// }
+  paystack.newTransaction({
+    key: import.meta.env.VITE_ENV_STRING + payData.value.additionalInfo,
+    email: userDetails.userInfo.email,
+    amount: amount * 100,
+    channels: channelList(amount),
+    metadata: simpleMeta,
+    onSuccess: (transaction) => {
+      console.log(transaction);
+      setTimeout(() => emit("confirm"), 7000);
+      toast.success("Your Application is being Processed", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      toast.success("Payment Successful", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    },
+    onCancel: () => {
+      toast.error("Payment Cancelled", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      loading.value = false;
+    },
+  });
+}
 
 const startCredoPay = () => {
   loading.value = true;
@@ -171,6 +182,41 @@ const startCredoPay = () => {
   handler.openIframe();
 };
 
+const gateway = ref("");
+
+const getPaymentGateway = async () => {
+  try {
+    const { data } = await axios.get("getuser");
+
+    const gatewayMethod = data.settings.gateway;
+
+    if (gatewayMethod === "paystack") {
+      gateway.value = "paystack";
+    } else if (gatewayMethod === "credo") {
+      gateway.value = "credo";
+    } else if (gatewayMethod === "both") {
+      gateway.value = "both";
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(() => {
+  getPaymentGateway();
+});
+
+const handlePayment = () => {
+  if (gateway.value === "paystack") {
+    startPayment();
+  } else if (gateway.value === "credo") {
+    startCredoPay();
+  } else if (gateway.value === "both") {
+    startCredoPay();
+    startPayment();
+  }
+};
+
 onMounted(() => {
   getPaymentInfo();
 });
@@ -224,8 +270,9 @@ onMounted(() => {
       </p> -->
       <div v-if="payData">
         <button
+          v-if="gateway === 'credo'"
           :disabled="loading"
-          @click="startCredoPay()"
+          @click="handlePayment()"
           class="blueBtn max-w-[200px] w-full mt-5 mx-auto rounded-none"
         >
           <IconSpinner v-if="loading" />
@@ -233,6 +280,41 @@ onMounted(() => {
             Pay with Credo
           </span>
         </button>
+
+        <button
+          v-if="gateway === 'paystack'"
+          :disabled="loading"
+          @click="handlePayment()"
+          class="blueBtn max-w-[200px] w-full mt-5 mx-auto rounded-none"
+        >
+          <IconSpinner v-if="loading" />
+          <span class="text-sm font-medium text-white" v-if="!loading">
+            Pay with Paystack
+          </span>
+        </button>
+        <div v-if="gateway === 'both'">
+          <button
+            :disabled="loading"
+            @click="startCredoPay()"
+            class="blueBtn max-w-[200px] w-full mt-5 mx-auto rounded-none"
+          >
+            <IconSpinner v-if="loading" />
+            <span class="text-sm font-medium text-white" v-if="!loading">
+              Pay with Credo
+            </span>
+          </button>
+
+          <button
+            :disabled="loading"
+            @click="startPayment()"
+            class="blueBtn max-w-[200px] w-full mt-5 mx-auto rounded-none"
+          >
+            <IconSpinner v-if="loading" />
+            <span class="text-sm font-medium text-white" v-if="!loading">
+              Pay with Paystack
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </VueFinalModal>
