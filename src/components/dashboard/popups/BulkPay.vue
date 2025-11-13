@@ -63,34 +63,40 @@ function startPayment() {
     payData.value.total_price +
     (payData.value.chargeFee || payData.value.ChargeFee);
 
-  const simpleMeta = {
-    paymentFor: "Application Fee",
-    appType: props.formType,
-    paymentId: payData.value.paymentID,
-    appPurpose: props.appPurpose,
-    amountPaid: payData.value.total_price,
-  };
+  // const simpleMeta = {
+  //   paymentFor: "Application Fee",
+  //   appType: props.formType,
+  //   paymentId: payData.value.paymentID,
+  //   appPurpose: props.appPurpose,
+  //   amountPaid: payData.value.total_price,
+  // };
 
-  if (props.multipleID) {
-    simpleMeta.customFields = [
-      {
-        variable_name: "paymentId",
-        display_name: "Payment Id",
-        value: Array.isArray(props.multipleID)
-          ? props.multipleID.join(", ")
-          : props.multipleID,
-      },
-    ];
-  }
+  // if (props.multipleID) {
+  //   simpleMeta.customFields = [
+  //     {
+  //       variable_name: "paymentId",
+  //       display_name: "Payment Id",
+  //       value: Array.isArray(props.multipleID)
+  //         ? props.multipleID.join(", ")
+  //         : props.multipleID,
+  //     },
+  //   ];
+  // }
 
-  console.log(simpleMeta)
+  // console.log(simpleMeta)
 
   paystack.newTransaction({
     key: import.meta.env.VITE_ENV_STRING + payData.value.additionalInfo,
     email: userDetails.userInfo.email,
     amount: amount * 100,
     channels: channelList(amount),
-    metadata: simpleMeta,
+    metadata: {
+    paymentFor: "Application Fee",
+    appType: props.formType,
+    paymentId: payData.value.paymentID,
+    appPurpose: props.appPurpose,
+    amountPaid: payData.value.total_price,
+  },
     onSuccess: (transaction) => {
       console.log(transaction);
       setTimeout(() => emit("confirm"), 7000);

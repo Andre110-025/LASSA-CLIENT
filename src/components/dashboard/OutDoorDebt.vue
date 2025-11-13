@@ -82,26 +82,26 @@ const startFullCredoPayment = () => {
   loading.value = true;
   const transRef = generateRandomRef();
 
-  const simpleMeta = {
-    paymentFor: "Permit Bill",
-    paymentId: props.paymentID,
-    appType: "OutDoor Site",
-    permitFee: arrearData.value?.Total || permitCost.value.Total,
-  };
+  // const simpleMeta = {
+  //   paymentFor: "Permit Bill",
+  //   paymentId: props.paymentID,
+  //   appType: "OutDoor Site",
+  //   permitFee: arrearData.value?.Total || permitCost.value.Total,
+  // };
 
-  if (props.appID) {
-    simpleMeta.customFields = [
-      {
-        variable_name: "applicationId",
-        display_name: "application Id",
-        value: Array.isArray(props.appID)
-          ? props.appID.join(", ")
-          : props.appID,
-      },
-    ];
-  }
+  // if (props.appID) {
+  //   simpleMeta.customFields = [
+  //     {
+  //       variable_name: "applicationId",
+  //       display_name: "application Id",
+  //       value: Array.isArray(props.appID)
+  //         ? props.appID.join(", ")
+  //         : props.appID,
+  //     },
+  //   ];
+  // }
 
-  console.log(simpleMeta);
+  // console.log(simpleMeta);
 
   const handler = window.CredoWidget.setup({
     key: permitCost.value.additionalInfoCredo,
@@ -112,7 +112,13 @@ const startFullCredoPayment = () => {
     channels: ["card", "bank"],
     reference: transRef,
     splitConfiguration: permitCost.value.split_settlement,
-    metadata: simpleMeta,
+    metadata: {
+    paymentFor: "Permit Bill",
+    paymentId: props.paymentID,
+    appType: "OutDoor Site",
+    permitFee: arrearData.value?.Total || permitCost.value.Total,
+    applicationId: props.appID
+  },
     callbackUrl: "https://merchant-test-line.netlify.app/successful",
     onClose: () => {
       console.log("Widget Closed");
@@ -203,24 +209,24 @@ const startPartCredoPayment = () => {
   const amount = partAmount.value + getCharge();
   const transRef = generateRandomRef();
 
-  const simpleMeta = {
-    paymentFor: "Permit Bill",
-    paymentId: props.paymentID,
-    appType: "OutDoor Site",
-    permitFee: partAmount.value,
-  };
+  // const simpleMeta = {
+  //   paymentFor: "Permit Bill",
+  //   paymentId: props.paymentID,
+  //   appType: "OutDoor Site",
+  //   permitFee: partAmount.value,
+  // };
 
-  if (props.appID) {
-    simpleMeta.customFields = [
-      {
-        variable_name: "applicationId",
-        display_name: "application Id",
-        value: Array.isArray(props.appID)
-          ? props.appID.join(", ")
-          : props.appID,
-      },
-    ];
-  }
+  // if (props.appID) {
+  //   simpleMeta.customFields = [
+  //     {
+  //       variable_name: "applicationId",
+  //       display_name: "application Id",
+  //       value: Array.isArray(props.appID)
+  //         ? props.appID.join(", ")
+  //         : props.appID,
+  //     },
+  //   ];
+  // }
 
   const handler = window.CredoWidget.setup({
     key: permitCost.value.additionalInfoCredo,
@@ -231,7 +237,13 @@ const startPartCredoPayment = () => {
     channels: ["card", "bank"],
     reference: transRef,
     splitConfiguration: permitCost.value.split_settlement,
-    metadata: simpleMeta,
+    metadata: {
+    paymentFor: "Permit Bill",
+    paymentId: props.paymentID,
+    appType: "OutDoor Site",
+    permitFee: partAmount.value,
+    applicationId: props.appID
+  },
     callbackUrl: "https://merchant-test-line.netlify.app/successful",
     onClose: () => {
       console.log("Widget Closed");
@@ -341,31 +353,37 @@ function payPart() {
   console.log(getCharge());
   const amount = partAmount.value + getCharge();
 
-  const simpleMeta = {
-    paymentFor: "Permit Bill",
-    paymentId: props.paymentID,
-    appType: "OutDoor Site",
-    permitFee: partAmount.value,
-  };
+  // const simpleMeta = {
+  //   paymentFor: "Permit Bill",
+  //   paymentId: props.paymentID,
+  //   appType: "OutDoor Site",
+  //   permitFee: partAmount.value,
+  // };
 
-  if (props.appID) {
-    simpleMeta.customFields = [
-      {
-        variable_name: "applicationId",
-        display_name: "application Id",
-        value: Array.isArray(props.appID)
-          ? props.appID.join(", ")
-          : props.appID,
-      },
-    ];
-  }
+  // if (props.appID) {
+  //   simpleMeta.customFields = [
+  //     {
+  //       variable_name: "applicationId",
+  //       display_name: "application Id",
+  //       value: Array.isArray(props.appID)
+  //         ? props.appID.join(", ")
+  //         : props.appID,
+  //     },
+  //   ];
+  // }
 
   paystack.newTransaction({
     key: import.meta.env.VITE_ENV_STRING + permitCost.value.additionalInfo,
     email: userDetails.userInfo.email,
     amount: amount * 100,
     channels: ["card", "bank"],
-    metadata: simpleMeta,
+    metadata: {
+    paymentFor: "Permit Bill",
+    paymentId: props.paymentID,
+    appType: "OutDoor Site",
+    permitFee: partAmount.value,
+    applicationId: props.appID
+  },
     onSuccess: (transaction) => {
       console.log(transaction);
       toast.success("Payment Successful", {

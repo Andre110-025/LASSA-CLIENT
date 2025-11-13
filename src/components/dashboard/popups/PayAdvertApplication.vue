@@ -52,25 +52,25 @@ const startCredoPayment = () => {
   const transRef = generateRandomRef();
   const amount = appTotal + chargeFee;
 
-  const simpleMeta = {
-    paymentFor: "Application Fee",
-    appType: props.formType,
-    appPurpose: props.appPurpose,
-    amountPaid: props.appDetails.total_price,
-    paymentId: payID,
-  };
+  // const simpleMeta = {
+  //   paymentFor: "Application Fee",
+  //   appType: props.formType,
+  //   appPurpose: props.appPurpose,
+  //   amountPaid: props.appDetails.total_price,
+  //   paymentId: payID,
+  // };
 
-  if (Array.isArray(payID)) {
-    simpleMeta.customFields = [
-      {
-        variable_name: "paymentId",
-        display_name: "Payment Id",
-        value: Array.isArray(payID) ? payID.join(", ") : payID,
-      },
-    ];
-  } else {
-    paymentId: payID;
-  }
+  // if (Array.isArray(payID)) {
+  //   simpleMeta.customFields = [
+  //     {
+  //       variable_name: "paymentId",
+  //       display_name: "Payment Id",
+  //       value: Array.isArray(payID) ? payID.join(", ") : payID,
+  //     },
+  //   ];
+  // } else {
+  //   paymentId: payID;
+  // }
   // const metadataCheck = {
   //   customFields: [
   //     {
@@ -88,7 +88,7 @@ const startCredoPayment = () => {
   //   return {}
   // };
 
-  console.log("simpleMeta:", simpleMeta);
+  // console.log("simpleMeta:", simpleMeta);
   // return;
 
   const handler = window.CredoWidget.setup({

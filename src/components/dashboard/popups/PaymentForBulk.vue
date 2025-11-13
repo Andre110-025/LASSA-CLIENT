@@ -27,6 +27,8 @@ const props = defineProps({
   },
 });
 
+// console.log(props.appID)
+
 const startCredoPayment = () => {
   const amount = props.amount + props.chargeFee;
   const transRef = generateRandomRef();
@@ -94,34 +96,42 @@ function startPayment() {
   loading.value = true;
   const amount = props.amount + props.chargeFee;
 
-  const simpleMeta = {
-    paymentFor: "Permit Bill",
-    appType: props.type,
-    appPurpose: "Bulk Payment",
-    permitFee: props.amount,
-  };
+  // const simpleMeta = {
+  //   paymentFor: "Permit Bill",
+  //   appType: props.type,
+  //   appPurpose: "Bulk Payment",
+  //   permitFee: props.amount,
+  // };
 
-  if (Array.isArray(props.appID)) {
-    simpleMeta.customFields = [
-      {
-        variable_name: "applicationId",
-        display_name: "application Id",
-        value: Array.isArray(props.appID)
-          ? props.appID.join(", ")
-          : props.appID,
-      },
-    ];
-  }
+  // if (Array.isArray(props.appID)) {
+  //   simpleMeta.customFields = [
+  //     {
+  //       variable_name: "applicationId",
+  //       display_name: "applicationId",
+  //       value: Array.isArray(props.appID)
+  //         ? props.appID.join(", ")
+  //         : props.appID,
+  //     },
+  //   ];
+  // }
+
+  // console.log(simpleMeta)
 
   paystack.newTransaction({
     key: import.meta.env.VITE_ENV_STRING + props.pKey,
     email: userDetails.userInfo.email,
     amount: amount * 100,
     channels: channelList(amount),
-    metadata: simpleMeta,
+    metadata: {
+    paymentFor: "Permit Bill",
+    appType: props.type,
+    appPurpose: "Bulk Payment",
+    permitFee: props.amount,
+    applicationId: props.appID
+  },
     onSuccess: (transaction) => {
       console.log(transaction);
-      setTimeout(() => getPayment(), 10000);
+      setTimeout(() => emit("confirm"), 10000);
 
       toast.success("Payment Successful", {
         position: toast.POSITION.TOP_CENTER,
