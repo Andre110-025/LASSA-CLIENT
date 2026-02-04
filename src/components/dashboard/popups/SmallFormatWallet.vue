@@ -8,7 +8,7 @@ import IconSpinner from "../../icons/IconSpinner.vue";
 import axios from "axios";
 import PaystackPop from "@paystack/inline-js";
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 const { userDetails } = useUserStore();
 const userStore = useUserStore();
 const loading = ref(false);
@@ -33,9 +33,9 @@ onMounted(() => {
 
 const startFullCredoPayment = () => {
   loading.value = true;
-
   const amount = props.amount + props.chargeFee;
   const transRef = generateRandomRef();
+  const channel = props.chargeFee;
 
   const handler = window.CredoWidget.setup({
     key: props.cKey,
@@ -44,6 +44,7 @@ const startFullCredoPayment = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: props.split,
     metadata: {

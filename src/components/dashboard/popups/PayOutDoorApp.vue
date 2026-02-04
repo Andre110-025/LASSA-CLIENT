@@ -13,7 +13,7 @@ const { userDetails } = useUserStore();
 
 const router = useRouter();
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 const props = defineProps({
   appDetails: Object,
   formType: String,
@@ -48,6 +48,7 @@ const infoWallet = {
 
 const startCredoPayment = () => {
   loading.value = true;
+  const channel = chargeFee;
   const transRef = generateRandomRef();
   const amount = appTotal + chargeFee;
 
@@ -58,6 +59,7 @@ const startCredoPayment = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: split_settlement,
     metadata: {

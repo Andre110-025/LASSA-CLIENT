@@ -269,6 +269,12 @@ export function useHelpers() {
     else return ["card", "bank", "ussd", "qr", "mobile_money", "bank_transfer"];
   };
 
+  // service charge
+  const serviceCodeSelector = (charge) => {
+    if (charge < 2600) return "006530O09VWU";
+    else return "006530DOLW85";
+  };
+
   const todayDate = () => {
     return new Date().toISOString().split("T")[0]; // Formats today's date as YYYY-MM-DD
   };
@@ -279,9 +285,13 @@ export function useHelpers() {
     return endOfCurrentYear.toISOString().split("T")[0]; // Formats end of year as YYYY-MM-DD
   };
 
+  // const generateRandomRef = () => {
+  //   const rand = (min, max) => Math.floor(Math.random() * (max - min) + min);
+  //   return `iy67f${rand(10, 60)}hvc${rand(10, 90)}`;
+  // };
+
   const generateRandomRef = () => {
-    const rand = (min, max) => Math.floor(Math.random() * (max - min) + min);
-    return `iy67f${rand(10, 60)}hvc${rand(10, 90)}`;
+    return `iy-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
   };
 
   // Custom Validations
@@ -313,5 +323,6 @@ export function useHelpers() {
     dateToSlash,
     channelList,
     generateRandomRef,
+    serviceCodeSelector,
   };
 }

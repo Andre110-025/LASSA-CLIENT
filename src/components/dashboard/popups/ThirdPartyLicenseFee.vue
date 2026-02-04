@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from "vue3-toastify";
 
 const { userDetails } = useUserStore();
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 const loading = ref(false);
 const licenseCost = ref(null);
 
@@ -43,6 +43,7 @@ const startCredoPayment = () => {
   const total = licenseCost.value.totalFee + licenseCost.value.ChargeFee;
   const regFee = total * 100;
   const transRef = generateRandomRef();
+  const channel = licenseCost.value.ChargeFee;
 
   // const simpleMeta = {
   //   paymentFor: "Practitioner License Fee",
@@ -69,6 +70,7 @@ const startCredoPayment = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: licenseCost.value.split_settlement,
     metadata: {

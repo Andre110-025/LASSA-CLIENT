@@ -175,6 +175,7 @@ const startCredoPartPayment = () => {
 
   const amount = partAmount.value + getCharge();
   const transRef = generateRandomRef();
+  const channel = getCharge();
 
   // const simpleMeta = {
   //   paymentFor: "Permit Bill",
@@ -201,6 +202,7 @@ const startCredoPartPayment = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: arrearData.value.split_settlement,
     metadata: {
@@ -352,7 +354,7 @@ function payPart() {
     key: import.meta.env.VITE_ENV_STRING + arrearData.value.additionalInfo,
     email: userDetails.userInfo.email,
     amount: amount * 100,
-    channels: ["card", "bank"],
+    channels: channelList(amount),
     metadata: {
     paymentFor: "Permit Bill",
     appType: "Onpremise",

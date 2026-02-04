@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from "vue3-toastify";
 
 const { userDetails } = useUserStore();
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 const loading = ref(false);
 const payData = ref(null);
 
@@ -40,6 +40,7 @@ const getPaymentInfo = async () => {
 
 const startCredoPayment = () => {
   loading.value = true;
+  const channel = payData.value.chargeFee;
   const Total = payData.value.total_price + payData.value.chargeFee;
   const transRef = generateRandomRef();
   const regFee = Total * 100;
@@ -49,6 +50,7 @@ const startCredoPayment = () => {
     email: userDetails.userInfo.email,
     amount: regFee,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     currency: "NGN",
     renderSize: 0,
     reference: transRef,

@@ -13,7 +13,7 @@ const { userDetails } = useUserStore();
 
 const router = useRouter();
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 const props = defineProps({
   appDetails: Object,
   formType: String,
@@ -51,6 +51,7 @@ const startCredoPayment = () => {
 
   const transRef = generateRandomRef();
   const amount = appTotal + chargeFee;
+  const channel = chargeFee
 
   // const simpleMeta = {
   //   paymentFor: "Application Fee",
@@ -96,6 +97,7 @@ const startCredoPayment = () => {
     email: userDetails.userInfo.email,
     amount: amount * 100,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     currency: "NGN",
     renderSize: 0,
     reference: transRef,

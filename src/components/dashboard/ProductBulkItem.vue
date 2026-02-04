@@ -9,7 +9,7 @@ import IconSpinner from "../icons/IconSpinner.vue";
 import { useModal } from "vue-final-modal";
 import PaymentForBulk from "./popups/PaymentForBulk.vue";
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 
 const { userDetails } = useUserStore();
 
@@ -55,6 +55,7 @@ const getPayment = async () => {
 const startCredoPayment = () => {
   const amount = payData.value.total_price + payData.value.ChargeFee;
   const transRef = generateRandomRef()
+  const channel = payData.value.ChargeFee;
 
     const simpleMeta = {
       paymentFor: "Permit Bill",
@@ -83,6 +84,7 @@ const startCredoPayment = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: payData.value.split_settlement,
     metadata: simpleMeta,

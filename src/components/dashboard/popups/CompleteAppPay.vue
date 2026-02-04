@@ -14,7 +14,7 @@ const { userDetails } = useUserStore();
 const userStore = useUserStore();
 const router = useRouter();
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 const props = defineProps({
   paymentID: String,
   formType: String,
@@ -66,10 +66,14 @@ watchEffect(() => {
 const startCredoPay = () => {
   loading.value = true;
 
+  const channel = payData.value.chargeFee || payData.value.ChargeFee
+
   const transRef = generateRandomRef();
   const amount =
     payData.value.total_price +
     (payData.value.chargeFee || payData.value.ChargeFee);
+
+  // console.log("code:", transRef)
 
   // console.log("Amount", amount * 100, amount, payData.value.total_price, payData.value.ChargeFee);
   // return
@@ -82,6 +86,7 @@ const startCredoPay = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     // customerPhoneNumber: '08032698425',
     splitConfiguration: payData.value.split_settlement,

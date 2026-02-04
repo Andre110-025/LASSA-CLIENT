@@ -15,7 +15,7 @@ const loading = ref(false);
 const userStore = useUserStore();
 const { userDetails } = useUserStore();
 const { getWalletData } = useUserStore();
-const { formatCurrency, generateRandomRef, channelList } = useHelpers();
+const { formatCurrency, generateRandomRef, channelList, serviceCodeSelector } = useHelpers();
 
 const emit = defineEmits(["confirm"]);
 
@@ -163,6 +163,7 @@ const getPaystackCharge = () => {
 };
 const startCredoPay = () => {
   loading.value = true;
+  const channel = getCredoCharge()
   const transRef = generateRandomRef();
   const amount = fundData.transaction_amount + getCredoCharge();
 
@@ -173,6 +174,7 @@ const startCredoPay = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: publicKey.value.split_settlement,
     metadata: {

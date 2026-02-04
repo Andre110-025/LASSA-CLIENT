@@ -8,7 +8,8 @@ import IconSpinner from "../../icons/IconSpinner.vue";
 import axios from "axios";
 import PaystackPop from "@paystack/inline-js";
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } =
+  useHelpers();
 const { userDetails } = useUserStore();
 const userStore = useUserStore();
 const loading = ref(false);
@@ -46,6 +47,7 @@ const startFullCredoPayment = () => {
   loading.value = true;
   const transRef = generateRandomRef();
 
+  const channel = props.chargeFee
   // const simpleMeta = {
   //   paymentFor: "Permit Bill",
   //   paymentId: props.paymentID,
@@ -74,15 +76,16 @@ const startFullCredoPayment = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: props.split,
     metadata: {
-    paymentFor: "Permit Bill",
-    paymentId: props.paymentID,
-    appType: "OutDoor Site",
-    permitFee: props.amount || props.amountPermit,
-    applicationId: props.appID
-  },
+      paymentFor: "Permit Bill",
+      paymentId: props.paymentID,
+      appType: "OutDoor Site",
+      permitFee: props.amount || props.amountPermit,
+      applicationId: props.appID,
+    },
     callbackUrl: "https://merchant-test-line.netlify.app/successful",
     onClose: () => {
       console.log("Widget Closed");
@@ -139,12 +142,12 @@ function payFull() {
     amount: Math.round(getAmount() * 100),
     channels: channelList(getAmount()),
     metadata: {
-    paymentFor: "Permit Bill",
-    paymentId: props.paymentID,
-    appType: "OutDoor Site",
-    permitFee: props.amount || props.amountPermit,
-    applicationId: props.appID
-  },
+      paymentFor: "Permit Bill",
+      paymentId: props.paymentID,
+      appType: "OutDoor Site",
+      permitFee: props.amount || props.amountPermit,
+      applicationId: props.appID,
+    },
     onSuccess: (transaction) => {
       console.log(transaction);
       setTimeout(() => emit("confirm"), 7000);
@@ -202,7 +205,7 @@ const submitFullWalletPayInfo = async () => {
     payment_id: props.paymentID,
     form_type: "Outdoor Wallet",
     payment_type: "Wallet",
-    amount_paid: getAmount()
+    amount_paid: getAmount(),
   };
 
   try {

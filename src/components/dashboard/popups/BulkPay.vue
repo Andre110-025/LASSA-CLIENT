@@ -13,7 +13,7 @@ const { userDetails } = useUserStore();
 
 const router = useRouter();
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 
 const props = defineProps({
   multipleID: Number,
@@ -119,6 +119,8 @@ function startPayment() {
 const startCredoPay = () => {
   loading.value = true;
 
+  const channel = payData.value.chargeFee || payData.value.ChargeFee
+
   const transRef = generateRandomRef();
   const amount =
     payData.value.total_price +
@@ -158,6 +160,7 @@ const startCredoPay = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: payData.value.split_settlement,
     // customerPhoneNumber: '08032698425',

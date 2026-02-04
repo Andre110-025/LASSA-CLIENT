@@ -10,7 +10,7 @@ import IconSpinner from "../../icons/IconSpinner.vue";
 
 const { userDetails } = useUserStore();
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 const props = defineProps({
   appID: Number,
   adType: String,
@@ -46,7 +46,7 @@ const infoWallet = {
 
 const startCredoPayment = () => {
   loading.value = true;
-
+  const channel = permitCost.value.ChargeFee;
   const transRef = generateRandomRef();
   const amount = permitCost.value["Total Fee"] + permitCost.value.ChargeFee;
 
@@ -57,6 +57,7 @@ const startCredoPayment = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: permitCost.value.split_settlement,
     metadata: {

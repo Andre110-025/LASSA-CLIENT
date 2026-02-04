@@ -8,7 +8,7 @@ import IconSpinner from "../../icons/IconSpinner.vue";
 import axios from "axios";
 import PaystackPop from "@paystack/inline-js";
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 const { userDetails } = useUserStore();
 const userStore = useUserStore();
 const loading = ref(false);
@@ -30,6 +30,7 @@ const props = defineProps({
 // console.log(props.appID)
 
 const startCredoPayment = () => {
+  const channel = props.chargeFee;
   const amount = props.amount + props.chargeFee;
   const transRef = generateRandomRef();
   loading.value = true;
@@ -63,6 +64,7 @@ const startCredoPayment = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: props.split,
     metadata: simpleMeta,

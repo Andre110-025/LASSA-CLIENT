@@ -10,7 +10,7 @@ import { useModal } from "vue-final-modal";
 import SmallFormatWallet from "./popups/SmallFormatWallet.vue";
 import IconSpinner from "../icons/IconSpinner.vue";
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+const { formatCurrency, channelList, generateRandomRef, serviceCodeSelector } = useHelpers();
 const { userDetails } = useUserStore();
 const userStore = useUserStore();
 
@@ -111,7 +111,7 @@ const startPartCredoPayment = () => {
   console.log(getCharge());
 
   const amount = partAmount.value + getCharge();
-
+  const channel = getCharge();
   const transRef = generateRandomRef();
   loading.value = true;
 
@@ -122,6 +122,7 @@ const startPartCredoPayment = () => {
     currency: "NGN",
     renderSize: 0,
     channels: ["card", "bank"],
+    // serviceCode: serviceCodeSelector(channel),
     reference: transRef,
     splitConfiguration: arrearData.value.split_settlement,
     metadata: {
@@ -178,7 +179,7 @@ function payPart() {
     key: import.meta.env.VITE_ENV_STRING + arrearData.value.additionalInfo,
     email: userDetails.userInfo.email,
     amount: amount * 100,
-    channels: ["card", "bank"],
+    channels: channelList(amount),
     metadata: {
       paymentFor: "Permit Bill",
       applicationId: props.appID,
