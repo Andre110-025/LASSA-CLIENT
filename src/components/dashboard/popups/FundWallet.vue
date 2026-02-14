@@ -15,7 +15,8 @@ const loading = ref(false);
 const userStore = useUserStore();
 const { userDetails } = useUserStore();
 const { getWalletData } = useUserStore();
-const { formatCurrency, generateRandomRef, channelList, serviceCodeSelector } = useHelpers();
+const { formatCurrency, generateRandomRef, channelList, serviceCodeSelector } =
+  useHelpers();
 
 const emit = defineEmits(["confirm"]);
 
@@ -111,7 +112,7 @@ watch(
     if (newPurpose && newAmount && (!oldPurpose || !oldAmount)) {
       selectPaymentPurpose();
     }
-  }
+  },
 );
 
 // const showBtn = ref(false);
@@ -163,7 +164,7 @@ const getPaystackCharge = () => {
 };
 const startCredoPay = () => {
   loading.value = true;
-  const channel = getCredoCharge()
+  const channel = getCredoCharge();
   const transRef = generateRandomRef();
   const amount = fundData.transaction_amount + getCredoCharge();
 
@@ -193,7 +194,7 @@ const startCredoPay = () => {
     callBack: (response) => {
       console.log("Successful Payment", response);
       // window.location.href = response.callbackUrl
-      setTimeout(() => emit("confirm"), 15000);
+      setTimeout(() => emit("confirm"), 5000);
 
       toast.success("Payment Successful", {
         position: toast.POSITION.TOP_CENTER,
@@ -513,6 +514,13 @@ const submitFundRequest = async () => {
         >
       </div>
 
+      <div class="mt-5 px-5 text-xs text-justify">
+        <span class="text-red-700">
+          MOBILE ADVERT CLIENTS, PLEASE DO NOT FUND WALLET!!! DO NOT PUT YOUR
+          MONEY IN THE WRONG ACCOUNT!
+        </span>
+      </div>
+
       <div class="inputHolder" v-if="false">
         <input
           type="date"
@@ -555,7 +563,7 @@ const submitFundRequest = async () => {
       </div>
 
       <div
-        class="flex flex-col justify-center items-center gap-3 w-full mt-auto mb-4 px-4"
+        class="flex flex-col justify-center items-center gap-3 w-full mt-4 mb-4 px-4"
       >
         <button
           v-if="gateway === 'credo'"
@@ -612,3 +620,9 @@ const submitFundRequest = async () => {
     </form>
   </VueFinalModal>
 </template>
+
+<style scoped>
+.disclaimer {
+  color: #dc2626; /* Tailwind red-600 equivalent */
+}
+</style>

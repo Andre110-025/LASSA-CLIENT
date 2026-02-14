@@ -79,7 +79,7 @@ const startCredoPayment = () => {
     callBack: (response) => {
       console.log("Successful Payment", response);
       // window.location.href = response.callbackUrl
-      setTimeout(() => emit("confirm"), 10000);
+      setTimeout(() => emit("confirm"), 5000);
 
       toast.success("Payment Successful", {
         position: toast.POSITION.TOP_CENTER,

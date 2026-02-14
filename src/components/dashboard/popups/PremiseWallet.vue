@@ -102,7 +102,7 @@ const startCredoFullPayment = () => {
       console.log("Successful Payment", response);
       // console.log("Metadata:", metadata);
       // window.location.href = response.callbackUrl
-      setTimeout(() => emit("confirm"), 15000);
+      setTimeout(() => emit("confirm"), 5000);
 
       toast.success("Your Application is being Processed", {
         position: toast.POSITION.TOP_CENTER,

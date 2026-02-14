@@ -13,7 +13,7 @@ import IconSpinner from "../icons/IconSpinner.vue";
 const { formatCurrency, channelList, generateRandomRef } = useHelpers();
 const { userDetails } = useUserStore();
 const userStore = useUserStore();
-
+const emit = defineEmits(["confirm"]);
 const props = defineProps({
   appID: Number,
   paymentID: String,
@@ -92,7 +92,7 @@ const startCredoFullPayment = () => {
       console.log("Successful Payment", response);
       // console.log("Metadata:", metadata);
       // window.location.href = response.callbackUrl
-      setTimeout(() => emit("confirm"), 10000);
+      setTimeout(() => emit("confirm"), 5000);
 
       toast.success("Your Application is being Processed", {
         position: toast.POSITION.TOP_CENTER,
@@ -223,7 +223,7 @@ const startCredoPartPayment = () => {
       console.log("Successful Payment", response);
       // console.log("Metadata:", metadata);
       // window.location.href = response.callbackUrl
-      setTimeout(() => emit("confirm"), 10000);
+      setTimeout(() => emit("confirm"), 5000);
 
       toast.success("Your Application is being Processed", {
         position: toast.POSITION.TOP_CENTER,
